@@ -303,6 +303,7 @@ class GameController(object):
         # Add ghosts
         pacman_map[int(self.ghosts.blinky.position.y / 16) - 3][int(self.ghosts.blinky.position.x / 16)] = 6
         pacman_map[int(self.ghosts.pinky.position.y / 16) - 3][int(self.ghosts.pinky.position.x / 16)] = 6
+        pacman_map[int(self.ghosts.clyde.position.y / 16) - 3][int(self.ghosts.clyde.position.x / 16)] = 6
         pacman_map[int(self.ghosts.inky.position.y / 16) - 3][int(self.ghosts.inky.position.x / 16)] = 6
 
         return pacman_map
