@@ -11,6 +11,7 @@ from text import TextGroup
 from sprites import LifeSprites
 from sprites import MazeSprites
 from mazedata import MazeData
+from vector import Vector2
 
 class GameController(object):
     def __init__(self):
@@ -96,7 +97,7 @@ class GameController(object):
         self.nodes.denyAccessList(12, 26, UP, self.ghosts)
         self.nodes.denyAccessList(15, 26, UP, self.ghosts)
 
-        
+    
 
     def update(self):
         dt = self.clock.tick(30) / 1000.0
@@ -268,6 +269,69 @@ class GameController(object):
 
         pygame.display.update()
 
+    # AI-RLD: Function for receiving gamedata
+    def receive_gamedata(self):
+        gamedata = {}
+        gamedata["lives"] = self.lives
+        gamedata["is_alive"] = self.pacman.alive
+        gamedata["score"] = self.score
+        gamedata["level"] = self.level
+        gamedata["map"] = self.get_map()
+
+    # AI-RLD: Function for reading map
+    def get_map(self):
+        # Fill map with walls
+        pacman_map = self.get_map_walls()
+
+        # Set Pacman in map
+        pacman_map[int(self.pacman.position.y / TILEHEIGHT) - 3][int(self.pacman.position.x / TILEWIDTH)] = 2
+
+        # Insert pellets and powerpellets
+        pellets = self.pellets.pelletList.copy()
+
+        for pellet in pellets:
+            if pellet.name == PELLET:
+                pacman_map[int(pellet.position.y / TILEHEIGHT) - 3][int(pellet.position.x / TILEWIDTH)] = 3
+            elif pellet.name == POWERPELLET:
+                pacman_map[int(pellet.position.y / TILEHEIGHT) - 3][int(pellet.position.x / TILEWIDTH)] = 4
+
+        # Add fruits
+        if self.fruit != None:
+            fruit_position = self.fruit.node.position.copy()
+            pacman_map[int(fruit_position.y / TILEHEIGHT) - 3][int(fruit_position.x / TILEWIDTH)] = 5
+
+        # Add ghosts
+        pacman_map[int(self.ghosts.blinky.position.y / 16) - 3][int(self.ghosts.blinky.position.x / 16)] = 6
+        pacman_map[int(self.ghosts.pinky.position.y / 16) - 3][int(self.ghosts.pinky.position.x / 16)] = 6
+        pacman_map[int(self.ghosts.inky.position.y / 16) - 3][int(self.ghosts.inky.position.x / 16)] = 6
+
+        return pacman_map
+
+    
+    # AI-RLD: Function for reading map file and receiving walls
+    def get_map_walls(self):
+        wall_map = []
+        wall = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "="]
+
+        maze_file = open("maze1.txt", "r")
+
+        line_number = 0
+        for line in maze_file:
+            line_number += 1
+            if line_number >= 4 and line_number <= 34:
+                map_line = []
+
+                line = line.replace(" ", "")
+                for node in line:
+                    if node == "\n":
+                        break
+                    if node in wall:
+                        map_line.append(1)
+                    else:
+                        map_line.append(0)
+                wall_map.append(map_line)
+        
+        return wall_map
 
 if __name__ == "__main__":
     game = GameController()
