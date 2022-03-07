@@ -43,9 +43,6 @@ class pacman_environment(gym.Env):
         # Info is used in Gym for debugging. We don't use it.
         info = {}
 
-        # Print a debug log
-        print("We stepped.")
-
         # Return observation, reward, done, info
         return observation, reward, done, info
     
