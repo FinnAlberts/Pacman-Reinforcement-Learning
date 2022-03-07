@@ -19,6 +19,8 @@ class PacmanEnvironment(gym.Env):
 
         # Initalize score variable at 0 to compare new score with
         score = 0
+        self.game = Pacman_Game.run.GameController()
+        self.game.startGame()
 
     # Step forward 1 step in time
     def step(self, action: int):
@@ -42,6 +44,8 @@ class PacmanEnvironment(gym.Env):
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
+
+        self.game.update()
 
         # Return observation, reward, done, info
         return observation, reward, done, info
