@@ -97,7 +97,7 @@ class PacmanEnvironment(gym.Env):
         self._give_input(0)
 
         # Read an observation
-        gamestate = self._get_reward(gamestate)
+        gamestate = self.game.receive_gamestate()
         observation = gamestate["map"]
 
         # Return the observation, because apparently `reset` should only return an observation
