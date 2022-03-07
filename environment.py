@@ -15,10 +15,11 @@ class PacmanEnvironment(gym.Env):
         self.observation_space = spaces.Box(low=0, high=8, shape=(31, 28), dtype='uint8')
     	
         # Initialize pynput controller used for simulating keypresses
-        keyboard = Controller()
+        self.keyboard = Controller()
 
         # Initalize score variable at 0 to compare new score with
-        score = 0
+        self.score = 0
+
         self.game = Pacman_Game.run.GameController()
         self.game.startGame()
 
@@ -28,7 +29,7 @@ class PacmanEnvironment(gym.Env):
         self._give_input(action)
 
         # Read gamestate
-        gamestate = Pacman_Game.run.receive_gamestate()
+        gamestate = self.game.receive_gamestate()
 
         # Get observation
         observation = gamestate["map"]
@@ -90,7 +91,7 @@ class PacmanEnvironment(gym.Env):
     # Reset restarts the game and returns the first observation
     def reset(self):
         # Restart the game
-        Pacman_Game.run.restartGame()
+        self.game.restartGame()
 
         # Set input to none
         self._give_input(0)
