@@ -92,6 +92,8 @@ class PacmanEnvironment(gym.Env):
     def reset(self):
         # Restart the game
         self.game.restartGame()
+        self.keyboard.press(Key.space)
+        self.keyboard.release(Key.space)
 
         # Set input to none
         self._give_input(0)
