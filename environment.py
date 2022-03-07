@@ -74,19 +74,20 @@ class PacmanEnvironment(gym.Env):
 
     # Input function
     def _give_input(self, action: int):
-        self.keyboard.release("up")
-        self.keyboard.release("right")
-        self.keyboard.release("down")
-        self.keyboard.release("left")
+        self.keyboard.release(Key.up)
+        self.keyboard.release(Key.right)
+        self.keyboard.release(Key.down)
+        self.keyboard.release(Key.left)
 
         if action == 1:
-            self.keyboard.press("up")
+            self.keyboard.press(Key.up)
         elif action == 2:
-            self.keyboard.press("right")
+            self.keyboard.press(Key.right)
         elif action == 3:
-            self.keyboard.press("down")
+            self.keyboard.press(Key.down)
+            print("V")
         elif action == 4:
-            self.keyboard.press("left")
+            self.keyboard.press(Key.left)
 
     # Reset restarts the game and returns the first observation
     def reset(self):
