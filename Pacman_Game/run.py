@@ -269,14 +269,16 @@ class GameController(object):
 
         pygame.display.update()
 
-    # AI-RLD: Function for receiving gamedata
-    def receive_gamedata(self):
-        gamedata = {}
-        gamedata["lives"] = self.lives
-        gamedata["is_alive"] = self.pacman.alive
-        gamedata["score"] = self.score
-        gamedata["level"] = self.level
-        gamedata["map"] = self.get_map()
+    # AI-RLD: Function for receiving gamestate
+    def receive_gamestate(self):
+        gamestate = {}
+        gamestate["lives"] = self.lives
+        gamestate["is_alive"] = self.pacman.alive
+        gamestate["score"] = self.score
+        gamestate["level"] = self.level
+        gamestate["map"] = self.get_map()
+
+        return gamestate
 
     # AI-RLD: Function for reading map
     def get_map(self):
