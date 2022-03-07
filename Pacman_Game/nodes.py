@@ -1,6 +1,6 @@
 import pygame
-from Pacman_Game.vector import Vector2
-from Pacman_Game.constants import *
+from vector import Vector2
+from constants import *
 import numpy as np
 
 class Node(object):

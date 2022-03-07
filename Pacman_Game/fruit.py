@@ -1,7 +1,7 @@
 import pygame
-from Pacman_Game.entity import Entity
-from Pacman_Game.constants import *
-from Pacman_Game.sprites import FruitSprites
+from entity import Entity
+from constants import *
+from sprites import FruitSprites
 
 class Fruit(Entity):
     def __init__(self, node, level=0):
