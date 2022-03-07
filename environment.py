@@ -4,7 +4,7 @@ from gym import spaces
 import Pacman_Game.run
 from pynput.keyboard import Key, Controller
 
-class pacman_environment(gym.Env):
+class PacmanEnvironment(gym.Env):
     def __init__(self):
         super().__init__()
         
