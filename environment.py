@@ -4,7 +4,7 @@ from gym import spaces
 import Pacman_Game.run
 from pynput.keyboard import Key, Controller
 
-class PacmanEnvironment(gym.env):
+class pacman_environment(gym.Env):
     def __init__(self):
         super().__init__()
         
@@ -42,6 +42,9 @@ class PacmanEnvironment(gym.env):
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
+
+        # Print a debug log
+        print("We stepped.")
 
         # Return observation, reward, done, info
         return observation, reward, done, info
