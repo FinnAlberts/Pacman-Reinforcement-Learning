@@ -306,14 +306,17 @@ class GameController(object):
         pacman_map[int(self.ghosts.clyde.position.y / 16) - 3][int(self.ghosts.clyde.position.x / 16)] = 6
         pacman_map[int(self.ghosts.inky.position.y / 16) - 3][int(self.ghosts.inky.position.x / 16)] = 6
 
+        # Return map
         return pacman_map
 
     
     # AI-RLD: Function for reading map file and receiving walls
     def get_map_walls(self):
+        # Define what is a wall in the maze file
         wall_map = []
         wall = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "="]
 
+        # Read the file
         maze_file = open("maze1.txt", "r")
 
         line_number = 0
@@ -332,6 +335,7 @@ class GameController(object):
                         map_line.append(0)
                 wall_map.append(map_line)
         
+        # Return map
         return wall_map
 
 if __name__ == "__main__":
