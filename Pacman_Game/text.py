@@ -1,6 +1,6 @@
 import pygame
-from vector import Vector2
-from constants import *
+from Pacman_Game.vector import Vector2
+from Pacman_Game.constants import *
 
 class Text(object):
     def __init__(self, text, color, x, y, size, time=None, id=None, visible=True):

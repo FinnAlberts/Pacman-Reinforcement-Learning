@@ -1,4 +1,4 @@
-from constants import *
+from Pacman_Game.constants import *
 
 class MazeBase(object):
     def __init__(self):

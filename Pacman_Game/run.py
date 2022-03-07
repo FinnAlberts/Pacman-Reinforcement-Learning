@@ -1,17 +1,17 @@
 import pygame
 from pygame.locals import *
-from constants import *
-from pacman import Pacman
-from nodes import NodeGroup
-from pellets import PelletGroup
-from ghosts import GhostGroup
-from fruit import Fruit
-from pauser import Pause
-from text import TextGroup
-from sprites import LifeSprites
-from sprites import MazeSprites
-from mazedata import MazeData
-from vector import Vector2
+from Pacman_Game.constants import *
+from Pacman_Game.pacman import Pacman
+from Pacman_Game.nodes import NodeGroup
+from Pacman_Game.pellets import PelletGroup
+from Pacman_Game.ghosts import GhostGroup
+from Pacman_Game.fruit import Fruit
+from Pacman_Game.pauser import Pause
+from Pacman_Game.text import TextGroup
+from Pacman_Game.sprites import LifeSprites
+from Pacman_Game.sprites import MazeSprites
+from Pacman_Game.mazedata import MazeData
+from Pacman_Game.vector import Vector2
 
 class GameController(object):
     def __init__(self):
