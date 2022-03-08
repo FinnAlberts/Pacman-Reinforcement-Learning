@@ -46,6 +46,10 @@ class PacmanEnvironment(gym.Env):
         else:
             done = False
 
+        # If run has ended, print total reward
+        if done:
+            print("Reward is", self.total_reward)
+
         # Info is used in Gym for debugging. We don't use it.
         info = {}
 
@@ -100,8 +104,7 @@ class PacmanEnvironment(gym.Env):
 
     # Reset restarts the game and returns the first observation
     def reset(self):
-        # Print total received reward and reset to 0
-        print("Reward is", self.total_reward)
+        # Reset total_reward variable (used for logging) to 0
         self.total_reward = 0
 
         # Restart the game
