@@ -19,6 +19,7 @@ class PacmanEnvironment(gym.Env):
 
         # Initalize score variable at 0 to compare new score with
         self.score = 0
+        self.run = 0
 
         # Initialize a total reward variable at 0
         self.total_reward = 0
@@ -46,9 +47,15 @@ class PacmanEnvironment(gym.Env):
         else:
             done = False
 
-        # If run has ended, print total reward
+        # Check if done
         if done:
+            # Print total reward
             print("Reward is", self.total_reward)
+
+            # Log total reward
+            with open('rewards.txt', 'a', encoding='utf-8') as file:
+                file.write(str(self.run) + " " + str(self.total_reward) + "\n")
+            self.run += 1
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
