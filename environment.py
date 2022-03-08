@@ -53,6 +53,7 @@ class PacmanEnvironment(gym.Env):
         # Info is used in Gym for debugging. We don't use it.
         info = {}
 
+        # Continue game for next frame
         self.game.update()
 
         # Return observation, reward, done, info
