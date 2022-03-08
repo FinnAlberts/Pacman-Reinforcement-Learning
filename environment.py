@@ -56,19 +56,23 @@ class PacmanEnvironment(gym.Env):
         reward = 0
         
         # Increasing score gives a reward
-        reward += (gamestate["score"] - self.score) / 10
+        reward += (gamestate["score"] - self.score)
         score = gamestate["score"]
         
         # Reaching level 2 gives a (big) reward 
         if gamestate["level"] > 0:
-            reward += 2000
+            reward += 10000
 
         # Passing of time gives a penalty (quicker runs are better)
         reward -= 0.5
 
         # Pressing buttons is not free
         if action != 0:
-            reward -= 0.5
+            reward -= 5
+
+        # Dying gives a penalty
+        if gamestate["is_alive"] == False:
+            reward -= 5000
 
         return reward
 
