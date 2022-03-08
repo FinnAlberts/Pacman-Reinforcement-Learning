@@ -1,11 +1,14 @@
 import gym
 from environment import PacmanEnvironment
-import Pacman_Game.run
 from stable_baselines3 import PPO
 import os.path
 from os import path
 
+
 def main():
+    # Start the graph beforehand
+    # os.system('python graph.py')
+
     # Register Gym environment and create model
     gym.register('Pacman-v0', entry_point=PacmanEnvironment)
     model = PPO('MlpPolicy', 'Pacman-v0')
@@ -22,6 +25,7 @@ def main():
         # Save the model
         print("Saving the model to trained_model.zip")
         model.save("trained_model.zip")
-    
+
+
 if __name__ == "__main__":
     main()
