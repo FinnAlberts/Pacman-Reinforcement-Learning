@@ -20,6 +20,9 @@ class PacmanEnvironment(gym.Env):
         # Initalize score variable at 0 to compare new score with
         self.score = 0
 
+        # Initialize a total reward variable at 0
+        self.total_reward = 0
+
         self.game = Pacman_Game.run.GameController()
         self.game.startGame()
 
@@ -74,6 +77,9 @@ class PacmanEnvironment(gym.Env):
         if gamestate["is_alive"] == False:
             reward -= 5000
 
+        # Add reward to total reward
+        self.total_reward += reward
+
         return reward
 
     # Input function
@@ -100,6 +106,10 @@ class PacmanEnvironment(gym.Env):
 
     # Reset restarts the game and returns the first observation
     def reset(self):
+        # Print total received reward and reset to 0
+        print("Reward is", self.total_reward)
+        self.total_reward = 0
+
         # Restart the game
         self.game.restartGame()
         self.keyboard.press(Key.space)
