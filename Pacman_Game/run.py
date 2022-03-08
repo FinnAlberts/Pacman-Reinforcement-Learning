@@ -100,7 +100,7 @@ class GameController(object):
     
 
     def update(self):
-        dt = self.clock.tick(30) / 1000.0
+        dt = self.clock.tick(180) / 110.0 # RLD - Increased speed
         self.textgroup.update(dt)
         self.pellets.update(dt)
         if not self.pause.paused:

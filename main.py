@@ -1,18 +1,18 @@
 import gym
-import ray
-from ray.rllib.agents import ppo
-from Pacman_Game.pacman import Pacman
-
-from environment import pacman_environment
+from environment import PacmanEnvironment
 import Pacman_Game.run
+from stable_baselines3 import PPO
 
 def main():
-    game = Pacman_Game.run.GameController()
-    game.startGame()
+    # game = Pacman_Game.run.GameController()
+    # game.startGame()
     
-    while True:
-        game.update()
+    # while True:
+    #     game.update()
+    gym.register('Pacman-v0', entry_point=PacmanEnvironment)
+    model = PPO('MlpPolicy', 'Pacman-v0').learn(10000000)
     
+
 
 if __name__ == "__main__":
     main()

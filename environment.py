@@ -4,7 +4,7 @@ from gym import spaces
 import Pacman_Game.run
 from pynput.keyboard import Key, Controller
 
-class pacman_environment(gym.Env):
+class PacmanEnvironment(gym.Env):
     def __init__(self):
         super().__init__()
         
@@ -15,10 +15,16 @@ class pacman_environment(gym.Env):
         self.observation_space = spaces.Box(low=0, high=8, shape=(31, 28), dtype='uint8')
     	
         # Initialize pynput controller used for simulating keypresses
-        keyboard = Controller()
+        self.keyboard = Controller()
 
         # Initalize score variable at 0 to compare new score with
-        score = 0
+        self.score = 0
+
+        # Initialize a total reward variable at 0
+        self.total_reward = 0
+
+        self.game = Pacman_Game.run.GameController()
+        self.game.startGame()
 
     # Step forward 1 step in time
     def step(self, action: int):
@@ -26,7 +32,7 @@ class pacman_environment(gym.Env):
         self._give_input(action)
 
         # Read gamestate
-        gamestate = Pacman_Game.run.receive_gamestate()
+        gamestate = self.game.receive_gamestate()
 
         # Get observation
         observation = gamestate["map"]
@@ -43,6 +49,8 @@ class pacman_environment(gym.Env):
         # Info is used in Gym for debugging. We don't use it.
         info = {}
 
+        self.game.update()
+
         # Return observation, reward, done, info
         return observation, reward, done, info
     
@@ -51,48 +59,67 @@ class pacman_environment(gym.Env):
         reward = 0
         
         # Increasing score gives a reward
-        reward += (gamestate["score"] - self.score) / 10
-        score = gamestate["score"]
+        reward += (gamestate["score"] - self.score)
+        self.score = gamestate["score"]
         
         # Reaching level 2 gives a (big) reward 
         if gamestate["level"] > 0:
-            reward += 2000
+            reward += 10000
 
         # Passing of time gives a penalty (quicker runs are better)
         reward -= 0.5
 
         # Pressing buttons is not free
         if action != 0:
-            reward -= 0.5
+            reward -= 5
+
+        # Dying gives a penalty
+        if gamestate["is_alive"] == False:
+            reward -= 5000
+
+        # Add reward to total reward
+        self.total_reward += reward
 
         return reward
 
     # Input function
     def _give_input(self, action: int):
-        self.keyboard.release("up")
-        self.keyboard.release("right")
-        self.keyboard.release("down")
-        self.keyboard.release("left")
+        self.keyboard.release(Key.up)
+        self.keyboard.release(Key.right)
+        self.keyboard.release(Key.down)
+        self.keyboard.release(Key.left)
 
         if action == 1:
-            self.keyboard.press("up")
+            self.keyboard.press(Key.up)
+            #print("^")
         elif action == 2:
-            self.keyboard.press("right")
+            self.keyboard.press(Key.right)
+            #print(">")
         elif action == 3:
-            self.keyboard.press("down")
+            self.keyboard.press(Key.down)
+            #print("V")
         elif action == 4:
-            self.keyboard.press("left")
+            self.keyboard.press(Key.left)
+            #print("<")
+        #else:
+            #print("X")
 
     # Reset restarts the game and returns the first observation
     def reset(self):
+        # Print total received reward and reset to 0
+        print("Reward is", self.total_reward)
+        self.total_reward = 0
+
         # Restart the game
-        Pacman_Game.run.restartGame()
+        self.game.restartGame()
+        self.keyboard.press(Key.space)
+        self.keyboard.release(Key.space)
 
         # Set input to none
         self._give_input(0)
 
         # Read an observation
-        gamestate = self._get_reward(gamestate)
+        gamestate = self.game.receive_gamestate()
         observation = gamestate["map"]
 
         # Return the observation, because apparently `reset` should only return an observation
