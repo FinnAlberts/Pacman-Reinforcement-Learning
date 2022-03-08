@@ -57,7 +57,7 @@ class PacmanEnvironment(gym.Env):
         
         # Increasing score gives a reward
         reward += (gamestate["score"] - self.score)
-        score = gamestate["score"]
+        self.score = gamestate["score"]
         
         # Reaching level 2 gives a (big) reward 
         if gamestate["level"] > 0:
