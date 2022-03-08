@@ -91,18 +91,12 @@ class PacmanEnvironment(gym.Env):
 
         if action == 1:
             self.keyboard.press(Key.up)
-            #print("^")
         elif action == 2:
             self.keyboard.press(Key.right)
-            #print(">")
         elif action == 3:
             self.keyboard.press(Key.down)
-            #print("V")
         elif action == 4:
             self.keyboard.press(Key.left)
-            #print("<")
-        #else:
-            #print("X")
 
     # Reset restarts the game and returns the first observation
     def reset(self):
