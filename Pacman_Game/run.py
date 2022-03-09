@@ -35,6 +35,8 @@ class GameController(object):
         self.fruitNode = None
         self.mazedata = MazeData()
 
+        self.pelletsEaten = 0
+
     def setBackground(self):
         self.background_norm = pygame.surface.Surface(SCREENSIZE).convert()
         self.background_norm.fill(BLACK)
@@ -149,6 +151,7 @@ class GameController(object):
         pellet = self.pacman.eatPellets(self.pellets.pelletList)
         if pellet:
             self.pellets.numEaten += 1
+            self.pelletsEaten += 1
             self.updateScore(pellet.points)
             if self.pellets.numEaten == 30:
                 self.ghosts.inky.startNode.allowAccess(RIGHT, self.ghosts.inky)
@@ -274,6 +277,7 @@ class GameController(object):
         gamestate["is_alive"] = self.pacman.alive
         gamestate["score"] = self.score
         gamestate["level"] = self.level
+        gamestate["pelletsEaten"] = self.pelletsEaten
         gamestate["map"] = self.get_map()
 
         return gamestate

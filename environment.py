@@ -20,6 +20,9 @@ class PacmanEnvironment(gym.Env):
         # Initalize score variable at 0 to compare new score with
         self.score = 0
 
+        # Initialize pellets eaten variable at 0 to compare amount of pellets eaten with
+        self.pelletsEaten = 0
+
         # Initialize a total reward variable at 0
         self.total_reward = 0
 
@@ -53,7 +56,7 @@ class PacmanEnvironment(gym.Env):
 
             # Log total reward
             with open('rewards.txt', 'a', encoding='utf-8') as file:
-                file.write(str(self.total_reward) + "\n")
+                file.write(str(self.total_reward) + " " + str(self.score) + "\n")
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
@@ -67,25 +70,25 @@ class PacmanEnvironment(gym.Env):
     # Reward function
     def _get_reward(self, gamestate: dict, action: int):
         reward = 0
-        
-        # Increasing score gives a reward
-        reward += (gamestate["score"] - self.score)
+
+        # For each pellet eaten a reward is given
+        if gamestate["pelletsEaten"] > self.pelletsEaten:
+            reward += 100
+        self.pelletsEaten = gamestate["pelletsEaten"]
+
+        # Game score updated to keep track of score progression
         self.score = gamestate["score"]
-        
+
         # Reaching level 2 gives a (big) reward 
         if gamestate["level"] > 0:
             reward += 10000
 
         # Passing of time gives a penalty (quicker runs are better)
-        reward -= 0.5
+        reward -= 0.3
 
-        # Pressing buttons is not free
-        if action != 0:
-            reward -= 5
-
-        # Dying gives a penalty
+        # Dying gives a penalty. The higher the score, the lower the penalty
         if gamestate["is_alive"] == False:
-            reward -= 5000
+            reward -= 5000 ** (1 - (gamestate["score"] % 14800))
 
         # Add reward to total reward
         self.total_reward += reward
