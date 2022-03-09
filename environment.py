@@ -22,6 +22,8 @@ class PacmanEnvironment(gym.Env):
 
         # Initialize pellets eaten variable at 0 to compare amount of pellets eaten with
         self.pelletsEaten = 0
+        self.fruitEaten = 0
+        self.ghostsEaten = 0
 
         # Initialize a total reward variable at 0
         self.total_reward = 0
@@ -76,6 +78,13 @@ class PacmanEnvironment(gym.Env):
             reward += 100
         self.pelletsEaten = gamestate["pelletsEaten"]
 
+        if gamestate["fruitEaten"] > self.fruitEaten:
+            reward += 1000
+        self.fruitEaten = gamestate["fruitEaten"]
+
+        if gamestate["ghostsEaten"] > self.ghostsEaten:
+            reward += 500
+        self.ghostsEaten = gamestate["ghostsEaten"]
         # Game score updated to keep track of score progression
         self.score = gamestate["score"]
 

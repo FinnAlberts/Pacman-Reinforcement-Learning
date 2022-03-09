@@ -13,6 +13,7 @@ from Pacman_Game.sprites import MazeSprites
 from Pacman_Game.mazedata import MazeData
 from Pacman_Game.vector import Vector2
 
+
 class GameController(object):
     def __init__(self):
         pygame.init()
@@ -36,6 +37,8 @@ class GameController(object):
         self.mazedata = MazeData()
 
         self.pelletsEaten = 0
+        self.fruitEaten = len(self.fruitCaptured)
+        self.ghostsEaten = 0
 
     def setBackground(self):
         self.background_norm = pygame.surface.Surface(SCREENSIZE).convert()
@@ -177,6 +180,7 @@ class GameController(object):
                     self.pause.setPause(pauseTime=1, func=self.showEntities)
                     ghost.startSpawn()
                     self.nodes.allowHomeAccess(ghost)
+                    self.ghostsEaten += 1
                 elif ghost.mode.current is not SPAWN:
                     if self.pacman.alive:
                         self.lives -=  1
@@ -279,6 +283,8 @@ class GameController(object):
         gamestate["level"] = self.level
         gamestate["pelletsEaten"] = self.pelletsEaten
         gamestate["map"] = self.get_map()
+        gamestate["fruitEaten"] = self.fruitEaten
+        gamestate["ghostsEaten"] = self.ghostsEaten
 
         return gamestate
 
