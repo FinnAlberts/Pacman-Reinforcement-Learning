@@ -235,6 +235,8 @@ class GameController(object):
         self.fruit = None
         self.startGame()
         self.score = 0
+        self.pelletsEaten = 0
+        self.ghostsEaten = 0
         self.textgroup.updateScore(self.score)
         self.textgroup.updateLevel(self.level)
         self.textgroup.showText(READYTXT)

@@ -3,11 +3,12 @@ from environment import PacmanEnvironment
 from stable_baselines3 import PPO
 import os.path
 from os import path
+import os
+import subprocess
 
 
 def main():
     # Start the graph beforehand
-    # os.system('python graph.py')
 
     # Register Gym environment and create model
     gym.register('Pacman-v0', entry_point=PacmanEnvironment)
