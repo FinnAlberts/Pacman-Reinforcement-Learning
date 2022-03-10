@@ -98,6 +98,7 @@ class PacmanEnvironment(gym.Env):
         # Dying gives a penalty. The higher the score, the lower the penalty
         if gamestate["is_alive"] == False:
             reward -= 5000 ** (1 - (gamestate["score"] % 14800))
+            reward -= (10 * (240 - gamestate["pelletsEaten"]))
 
         # Add reward to total reward
         self.total_reward += reward
@@ -122,6 +123,8 @@ class PacmanEnvironment(gym.Env):
 
     # Reset restarts the game and returns the first observation
     def reset(self):
+        # Reset score variable
+        self.score = 0
         # Reset total_reward variable (used for logging) to 0
         self.total_reward = 0
 
