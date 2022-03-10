@@ -275,8 +275,26 @@ class GameController(object):
         gamestate["score"] = self.score
         gamestate["level"] = self.level
         gamestate["map"] = self.get_map()
+        gamestate["min_ghost_distance"] = self.find_closest_ghost_distance()
 
         return gamestate
+
+    # RLD - Get the distance to the closest ghost
+    def find_closest_ghost_distance(self):
+        distances = []
+        distances.append((abs(self.ghosts.blinky.position.x - self.pacman.position.x)**2 + abs(self.ghosts.blinky.position.y - self.pacman.position.y)**2)**0.5)
+        distances.append((abs(self.ghosts.pinky.position.x - self.pacman.position.x)**2 + abs(self.ghosts.blinky.position.y - self.pacman.position.y)**2)**0.5)
+        
+        # Clyde releases after 30 pellets have been eaten
+        if self.pellets.numEaten >= 30:
+            distances.append((abs(self.ghosts.clyde.position.x - self.pacman.position.x)**2 + abs(self.ghosts.blinky.position.y - self.pacman.position.y)**2)**0.5)
+
+        # Inky releases after 70 pellets have been eaten
+        if self.pellets.numEaten >= 70:
+            distances.append((abs(self.ghosts.inky.position.x - self.pacman.position.x)**2 + abs(self.ghosts.blinky.position.y - self.pacman.position.y)**2)**0.5)
+
+        # Divide closest distance by 16 (= width of a tile)
+        return min(distances) / 16
 
     # AI-RLD: Function for reading map
     def get_map(self):
