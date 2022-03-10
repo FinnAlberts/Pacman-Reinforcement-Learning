@@ -60,7 +60,7 @@ class PacmanEnvironment(gym.Env):
 
             # Log total reward
             with open('rewards.txt', 'a', encoding='utf-8') as file:
-                file.write(str(self.total_reward["total"]) + "\n")
+                file.write(str(self.total_reward["total"]) + " " + str(self.score) + "\n")
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
