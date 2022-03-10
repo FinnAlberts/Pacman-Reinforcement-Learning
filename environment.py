@@ -75,7 +75,7 @@ class PacmanEnvironment(gym.Env):
     def _get_reward(self, gamestate: dict, action: int):
         reward = 0
         
-        # Increasing score gives a reward=
+        # Increasing score gives a reward
         reward += (gamestate["score"] - self.score)
         self.total_reward["score"] += (gamestate["score"] - self.score)
         self.score = gamestate["score"]
