@@ -20,8 +20,15 @@ class PacmanEnvironment(gym.Env):
         # Initalize score variable at 0 to compare new score with
         self.score = 0
 
-        # Initialize a total reward variable at 0
-        self.total_reward = 0
+        # Initialize a total rewards variable at 0
+        self.total_reward = {
+            "score": 0,
+            "level_complete": 0,
+            "time_alive": 0,
+            "button_presses": 0,
+            "dying": 0,
+            "total": 0
+        }
 
         self.game = Pacman_Game.run.GameController()
         self.game.startGame()
@@ -53,7 +60,7 @@ class PacmanEnvironment(gym.Env):
 
             # Log total reward
             with open('rewards.txt', 'a', encoding='utf-8') as file:
-                file.write(str(self.total_reward) + "\n")
+                file.write(str(self.total_reward["total"]) + "\n")
 
         # Info is used in Gym for debugging. We don't use it.
         info = {}
@@ -68,27 +75,32 @@ class PacmanEnvironment(gym.Env):
     def _get_reward(self, gamestate: dict, action: int):
         reward = 0
         
-        # Increasing score gives a reward
+        # Increasing score gives a reward=
         reward += (gamestate["score"] - self.score)
+        self.total_reward["score"] += (gamestate["score"] - self.score)
         self.score = gamestate["score"]
         
         # Reaching level 2 gives a (big) reward 
         if gamestate["level"] > 0:
             reward += 10000
+            self.total_reward["level_complete"] += 10000
 
-        # Passing of time gives a penalty (quicker runs are better)
+        # Passing of time gives a rewards (live longer)
         reward -= 0.5
+        self.total_reward["time_alive"] -= 0.5
 
         # Pressing buttons is not free
         if action != 0:
             reward -= 5
+            self.total_reward["button_presses"] -= 5
 
         # Dying gives a penalty
         if gamestate["is_alive"] == False:
             reward -= 5000
+            self.total_reward["dying"] -= 5000
 
         # Add reward to total reward
-        self.total_reward += reward
+        self.total_reward["total"] += reward
 
         return reward
 
@@ -111,7 +123,14 @@ class PacmanEnvironment(gym.Env):
     # Reset restarts the game and returns the first observation
     def reset(self):
         # Reset total_reward variable (used for logging) to 0
-        self.total_reward = 0
+        self.total_reward = {
+            "score": 0,
+            "level_complete": 0,
+            "time_alive": 0,
+            "button_presses": 0,
+            "dying": 0,
+            "total": 0
+        }
 
         # Restart the game
         self.game.restartGame()
