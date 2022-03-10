@@ -85,7 +85,7 @@ class PacmanEnvironment(gym.Env):
             reward += 10000
             self.total_reward["level_complete"] += 10000
 
-        # Passing of time gives a rewards (live longer)
+        # Passing of time gives a rewards (quicker runs are better)
         reward -= 0.5
         self.total_reward["time_alive"] -= 0.5
 
