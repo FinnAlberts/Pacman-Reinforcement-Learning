@@ -132,6 +132,9 @@ class PacmanEnvironment(gym.Env):
             "total": 0
         }
 
+        # Reset score variable
+        self.score = 0
+
         # Restart the game
         self.game.restartGame()
         self.keyboard.press(Key.space)
