@@ -3,11 +3,22 @@ from environment import PacmanEnvironment
 from stable_baselines3 import PPO
 import os.path
 from os import path
+from graph import graph
+from multiprocessing import Process
+
+
+def runInParallel(*fns):
+  proc = []
+  for fn in fns:
+    p = Process(target=fn)
+    p.start()
+    proc.append(p)
+  for p in proc:
+    p.join()
 
 
 def main():
     # Start the graph beforehand
-    # os.system('python graph.py')
 
     # Register Gym environment and create model
     gym.register('Pacman-v0', entry_point=PacmanEnvironment)
@@ -28,4 +39,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    runInParallel(main, graph)
