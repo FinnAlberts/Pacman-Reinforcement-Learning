@@ -35,9 +35,6 @@ def graph():
 
     animated = animation.FuncAnimation(figure, animate, interval=1000)
 
-    mngr = plt.get_current_fig_manager()
-    # to put it into the upper left corner for example:
-    mngr.window.setGeometry(0,50, 640, 900)
 
     plt.show()
     pyplot.show()
