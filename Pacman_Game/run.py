@@ -311,18 +311,18 @@ class GameController(object):
             if pellet.name == PELLET:
                 pacman_map[int(pellet.position.y / TILEHEIGHT) - 3][int(pellet.position.x / TILEWIDTH)] = 3
             elif pellet.name == POWERPELLET:
-                pacman_map[int(pellet.position.y / TILEHEIGHT) - 3][int(pellet.position.x / TILEWIDTH)] = 4
+                pacman_map[int(pellet.position.y / TILEHEIGHT) - 3][int(pellet.position.x / TILEWIDTH)] = 3
 
         # Add fruits
         if self.fruit != None:
             fruit_position = self.fruit.node.position.copy()
-            pacman_map[int(fruit_position.y / TILEHEIGHT) - 3][int(fruit_position.x / TILEWIDTH)] = 5
+            pacman_map[int(fruit_position.y / TILEHEIGHT) - 3][int(fruit_position.x / TILEWIDTH)] = 3
 
         # Add ghosts
-        pacman_map[int(self.ghosts.blinky.position.y / 16) - 3][int(self.ghosts.blinky.position.x / 16)] = 6
-        pacman_map[int(self.ghosts.pinky.position.y / 16) - 3][int(self.ghosts.pinky.position.x / 16)] = 6
-        pacman_map[int(self.ghosts.clyde.position.y / 16) - 3][int(self.ghosts.clyde.position.x / 16)] = 6
-        pacman_map[int(self.ghosts.inky.position.y / 16) - 3][int(self.ghosts.inky.position.x / 16)] = 6
+        pacman_map[int(self.ghosts.blinky.position.y / 16) - 3][int(self.ghosts.blinky.position.x / 16)] = 4
+        pacman_map[int(self.ghosts.pinky.position.y / 16) - 3][int(self.ghosts.pinky.position.x / 16)] = 4
+        pacman_map[int(self.ghosts.clyde.position.y / 16) - 3][int(self.ghosts.clyde.position.x / 16)] = 4
+        pacman_map[int(self.ghosts.inky.position.y / 16) - 3][int(self.ghosts.inky.position.x / 16)] = 4
 
         # Return map
         return pacman_map
