@@ -1,7 +1,6 @@
 import gym
 from environment import PacmanEnvironment
 from stable_baselines3 import PPO
-import os.path
 from os import path
 from graph import graph
 from multiprocessing import Process
