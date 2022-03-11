@@ -35,8 +35,6 @@ def graph():
 
     animated = animation.FuncAnimation(figure, animate, interval=1000)
 
-
-    plt.show()
     pyplot.show()
 
 
