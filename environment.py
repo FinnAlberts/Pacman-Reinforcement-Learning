@@ -21,6 +21,8 @@ class PacmanEnvironment(gym.Env):
         self.score = 0
 
         # Initialize a total rewards variable at 0
+        # Initialize step counter at 0
+        self.step_counter = 0
         self.total_reward = {
             "score": 0,
             "level_complete": 0,
@@ -67,6 +69,9 @@ class PacmanEnvironment(gym.Env):
 
         # Continue game for next frame
         self.game.update()
+
+        # Increase step counter
+        self.step_counter += 1
 
         # Return observation, reward, done, info
         return observation, reward, done, info
@@ -134,6 +139,9 @@ class PacmanEnvironment(gym.Env):
 
         # Reset score variable
         self.score = 0
+
+        # Reset step counter
+        self.step_counter = 0
 
         # Restart the game
         self.game.restartGame()
