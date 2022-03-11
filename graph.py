@@ -1,8 +1,5 @@
 import matplotlib.pyplot as pyplot
 import matplotlib.animation as animation
-import time
-import numpy as np
-import pylab
 
 figure, (axis1, axis2) = pyplot.subplots(2)
 
