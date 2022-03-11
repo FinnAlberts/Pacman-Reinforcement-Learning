@@ -20,9 +20,10 @@ class PacmanEnvironment(gym.Env):
         # Initalize score variable at 0 to compare new score with
         self.score = 0
 
-        # Initialize a total rewards variable at 0
         # Initialize step counter at 0
         self.step_counter = 0
+
+        # Initialize a total rewards variable at 0 (used for logging)
         self.total_reward = {
             "score": 0,
             "level_complete": 0,
@@ -90,9 +91,9 @@ class PacmanEnvironment(gym.Env):
             reward += 10000
             self.total_reward["level_complete"] += 10000
 
-        # Passing of time gives a penalty (quicker runs are better)
-        reward -= 0.5
-        self.total_reward["time_alive"] -= 0.5
+        # Passing of time gives a reward (surive longer)
+        reward += 0.5
+        self.total_reward["time_alive"] += 0.5
 
         # Pressing buttons is not free
         if action != 0:
@@ -101,11 +102,11 @@ class PacmanEnvironment(gym.Env):
 
         # Dying gives a penalty
         if gamestate["is_alive"] == False:
-            reward -= 5000
-            self.total_reward["dying"] -= 5000
+            reward -= (500 - gamestate["score"] * 0.0338)
+            self.total_reward["dying"] -= (500 - gamestate["score"] * 0.0338)
 
         # Add reward to total reward
-        self.total_reward["total"] += reward
+        self.total_reward["total"] += reward 
 
         return reward
 
