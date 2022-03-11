@@ -5,20 +5,18 @@ from os import path
 from graph import graph
 from multiprocessing import Process
 
-
-def runInParallel(*fns):
-  proc = []
+# Function for running graph.py and main.py simultaneously
+def run_in_parallel(*fns):
+  processes = []
   for fn in fns:
-    p = Process(target=fn)
-    p.start()
-    proc.append(p)
-  for p in proc:
-    p.join()
+    process = Process(target=fn)
+    process.start()
+    processes.append(process)
+  for process in processes:
+    process.join()
 
-
+# Function for training the model and running the game
 def main():
-    # Start the graph beforehand
-
     # Register Gym environment and create model
     gym.register('Pacman-v0', entry_point=PacmanEnvironment)
     model = PPO('MlpPolicy', 'Pacman-v0')
@@ -38,4 +36,4 @@ def main():
 
 
 if __name__ == "__main__":
-    runInParallel(main, graph)
+    run_in_parallel(main, graph)
