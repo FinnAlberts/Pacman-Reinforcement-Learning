@@ -273,7 +273,7 @@ class GameController(object):
 
         pygame.display.update()
 
-    # AI-RLD: Function for receiving gamestate
+    # RLD - Function for receiving gamestate
     def receive_gamestate(self):
         gamestate = {}
         gamestate["lives"] = self.lives
@@ -302,7 +302,7 @@ class GameController(object):
         # Divide closest distance by 16 (= width of a tile)
         return min(distances) / 16
 
-    # AI-RLD: Function for reading map
+    # RLD - Function for reading map
     def get_map(self):
         # Fill map with walls
         pacman_map = self.get_map_walls()
@@ -334,7 +334,7 @@ class GameController(object):
         return pacman_map
 
     
-    # AI-RLD: Function for reading map file and receiving walls
+    # RLD - Function for reading map file and receiving walls
     def get_map_walls(self):
         # Define what is a wall in the maze file
         wall_map = []
