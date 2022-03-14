@@ -11,7 +11,7 @@ class PacmanEnvironment(gym.Env):
         # Create an actionspace with 5 actions (nothing, up, right, down, left)
         self.action_space = spaces.Discrete(5)
 
-        # Create an observation space with values from 0 to 8 for different contents (walls, ghosts, Pacman, etc) in a 31 by 28 grid
+        # Create an observation space with values from 0 to 4 for different contents (walls, ghosts, Pacman, etc) in a 31 by 28 grid
         self.observation_space = spaces.Box(low=0, high=4, shape=(31, 28), dtype='uint8')
     	
         # Initialize pynput controller used for simulating keypresses
