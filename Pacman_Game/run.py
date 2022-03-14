@@ -64,6 +64,11 @@ class GameController(object):
 
         self.nodes.denyHomeAccess(self.pacman)
         self.nodes.denyHomeAccessList(self.ghosts)
+
+        # RLD - Disable blinky and pinky
+        self.ghosts.pinky.startNode.denyAccess(UP, self.ghosts.blinky)
+        self.ghosts.pinky.startNode.denyAccess(UP, self.ghosts.pinky)
+
         self.ghosts.inky.startNode.denyAccess(RIGHT, self.ghosts.inky)
         self.ghosts.clyde.startNode.denyAccess(LEFT, self.ghosts.clyde)
         self.mazedata.obj.denyGhostsAccess(self.ghosts, self.nodes)
@@ -150,10 +155,11 @@ class GameController(object):
         if pellet:
             self.pellets.numEaten += 1
             self.updateScore(pellet.points)
-            if self.pellets.numEaten == 30:
-                self.ghosts.inky.startNode.allowAccess(RIGHT, self.ghosts.inky)
-            if self.pellets.numEaten == 70:
-                self.ghosts.clyde.startNode.allowAccess(LEFT, self.ghosts.clyde)
+            # RLD - Disable inky and clyde
+            # if self.pellets.numEaten == 30:
+            #     self.ghosts.inky.startNode.allowAccess(RIGHT, self.ghosts.inky)
+            # if self.pellets.numEaten == 70:
+            #     self.ghosts.clyde.startNode.allowAccess(LEFT, self.ghosts.clyde)
             self.pellets.pelletList.remove(pellet)
             if pellet.name == POWERPELLET:
                 self.ghosts.startFreight()
