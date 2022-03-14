@@ -133,9 +133,11 @@ class GhostGroup(object):
     def __iter__(self):
         return iter(self.ghosts)
 
+    # RLD - Disable ghost movement
     def update(self, dt):
-        for ghost in self:
-            ghost.update(dt)
+        return
+        # for ghost in self:
+        #     ghost.update(dt)
 
     def startFreight(self):
         for ghost in self:
