@@ -17,22 +17,6 @@ class PacmanEnvironment(gym.Env):
         # Initialize pynput controller used for simulating keypresses
         self.keyboard = Controller()
 
-        # Initalize score variable at 0 to compare new score with
-        self.score = 0
-
-        # Initialize step counter at 0
-        self.step_counter = 0
-
-        # Initialize a total rewards variable at 0 (used for logging)
-        self.total_reward = {
-            "score": 0,
-            "level_complete": 0,
-            "time_alive": 0,
-            "button_presses": 0,
-            "dying": 0,
-            "total": 0
-        }
-
         self.game = Pacman_Game.run.GameController()
         self.game.startGame()
 
