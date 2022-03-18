@@ -34,8 +34,8 @@ class PacmanEnvironment(gym.Env):
         # Get reward
         reward = self._get_reward(gamestate, action)
 
-        # Check if done (we're done when we lose 1 life, even though we have 5 lives OR when we reach level 2)
-        if (gamestate["lives"] < 5) or (gamestate["level"] > 0):
+        # Check if done (we're done when we lose 1 life, even though we have 5 lives OR when we reach level 2 OR after 3000 steps (an average human run with no ghosts takes about 1700 steps))
+        if (gamestate["lives"] < 5) or (gamestate["level"] > 0 or self.step_counter > 3000):
             done = True
         else:
             done = False
