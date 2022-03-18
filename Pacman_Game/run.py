@@ -100,7 +100,7 @@ class GameController(object):
         self.nodes.denyAccessList(15, 26, UP, self.ghosts)
 
     def update(self):
-        dt = self.clock.tick(250) / 100.0    # RLD - Increased speed
+        dt = self.clock.tick(300) / 100.0    # RLD - Increased speed
         self.textgroup.update(dt)
         self.pellets.update(dt)
         if not self.pause.paused:
